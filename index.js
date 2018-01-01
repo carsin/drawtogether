@@ -13,6 +13,10 @@ io.on("connection", function(socket){
     socket.on("disconnect", () => {
         console.log("user disconnected");
     });
+    socket.on("draw", (clickX, clickY) => {
+        console.log("client drew at X:" + clickX + " Y: " + clickY);
+        io.emit("draw", clickX, clickY);
+    });
 });
 
 server.listen(3000, () => console.log("App listening on part 3000"));
