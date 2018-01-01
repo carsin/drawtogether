@@ -4,15 +4,32 @@
     <meta charset="UTF-8">
     <title>Draw together</title>
     <!-- CSS -->
-    <style></style>
+    <style>
+        body, html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #pad {
+            width: 500px;
+            height: 500px;
+            top: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: green;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>Hello world from html!</h1>
+    <canvas id="pad"></canvas>
 
     <!-- JS -->
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/client.js"></script>
 </body>
 </html>
