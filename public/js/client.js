@@ -1,13 +1,26 @@
 var canvas = $("#pad")[0];
 var ctx = canvas.getContext("2d");
 var socket = io();
+var mouseX;
+var mouseY;
+var drawLoop;
 
-$("#pad").mousedown((e) => {
-    var clickX = Math.round(e.pageX - $("#pad").offset().left);
-    var clickY = Math.round(e.pageY - $("#pad").offset().top);
-    socket.emit("draw", clickX, clickY);
+$("#pad").mousedown(() => {
+    drawLoop = setInterval(() => {
+        socket.emit("draw", mouseX, mouseY, 20, 20);
+    }, 1)
 });
 
-socket.on("draw", (clickX, clickY) => {
-    ctx.fillRect(clickX, clickY, 5, 5);
+$(document).mouseup(() => {
+    console.log("mouseup");
+    clearInterval(drawLoop);
+})
+
+$("#pad").mousemove((e) => {
+    mouseX = Math.round(e.pageX - $("#pad").offset().left);
+    mouseY = Math.round(e.pageY - $("#pad").offset().top);
+});
+
+socket.on("draw", (clickX, clickY, height = 5, width = 5) => {
+    ctx.fillRect(clickX, clickY, height, width);
 });
