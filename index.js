@@ -9,10 +9,10 @@ app.get("/", (req, res) => {
 });
 
 var drawRoom = {
-    clickX: new Array(),
-    clickY: new Array(),
-    clickDrag: new Array(),
-    users: new Array(),
+    clickX: [],
+    clickY: [],
+    clickDrag: [],
+    users: [],
     totalUsers: 0,
     userCount: 0,
 };
@@ -23,14 +23,14 @@ io.on("connection", function(socket){
     drawRoom.totalUsers++;
 
     socket.on("add username", (username) => {
-        drawRoom.users[drawRoom.totalUsers] = username;
+        drawRoom.users.push(username);
         console.log(drawRoom.users)
         io.emit("update users", drawRoom.users, drawRoom.userCount, drawRoom.totalUsers);
     });
 
     socket.on("disconnect", () => {
-        console.log(drawRoom.users[socket.id] + " disconnected");
-        delete drawRoom.users[socket.id];
+        //console.log(drawRoom.users[socket.id] + " disconnected");
+        //delete drawRoom.users[];
         drawRoom.userCount--;
         io.emit("update users", drawRoom.users, drawRoom.userCount, drawRoom.totalUsers);
     });

@@ -67,8 +67,13 @@ socket.on("draw", (drawRoom) => {
 });
 
 socket.on("update users", (users, userCount, totalUsers) => {
+    $("#user-list").html(" ");
+    for (i = 0; i < users.length; i++) {
+        $("#user-list").append("<li> " + users[i] + "</li>")
+    }
 
-    $("#user-total").html(userCount);
+    $("#user-online").html(userCount);
+    $("#user-total").html(totalUsers);
 });
 
 $("#btn-clear").click(() => {

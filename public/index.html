@@ -41,11 +41,20 @@
             display: inline-block;
         }
 
+        #user-list {
+            list-style: none;
+        }
+
+        #user-list li {
+            font-weight: 400;
+        }
+
     </style>
 </head>
 <body>
     <div id="users">
-        <p>Online users: <span id="user-total">N/A</span></p>
+        <p>Online users: <span id="user-online">N/A</span></p>
+        <p>Total users: <span id="user-total">N/A</span></p>
         <p>Users: </p>
         <ul id="user-list"></ul>
     </div>
