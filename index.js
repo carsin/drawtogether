@@ -8,15 +8,24 @@ app.get("/", (req, res) => {
     res.sendFile("index.html");
 });
 
+var drawRoom = {
+    clickX: new Array(),
+    clickY: new Array(),
+    clickDrag: new Array(),
+};
+
 io.on("connection", function(socket){
   console.log("user connected");
     socket.on("disconnect", () => {
         console.log("user disconnected");
     });
 
-    socket.on("draw", (clickX, clickY) => {
-        console.log("user drew at X:" + clickX + " Y: " + clickY);
-        io.emit("draw", clickX, clickY);
+    socket.on("draw", (x, y, dragging) => {
+        drawRoom.clickX.push(x);
+        drawRoom.clickY.push(y);
+        drawRoom.clickDrag.push(dragging);
+
+        io.emit("draw", drawRoom);
     });
 });
 
