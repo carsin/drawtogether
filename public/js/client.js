@@ -4,18 +4,9 @@ var socket = io();
 var mouseX;
 var mouseY;
 var draw;
-//var drawRoomLocal = {
-    //clickX: new Array(),
-    //clickY: new Array(),
-    //clickDrag: new Array(),
-//}
 
 function addDraw(x, y, dragging) {
     socket.emit("draw", x, y, dragging);
-
-    //drawRoomLocal.clickX.push(x);
-    //drawRoomLocal.clickY.push(y);
-    //drawRoomLocal.clickDrag.push(dragging);
 }
 
 function redraw(drawRoom) {
