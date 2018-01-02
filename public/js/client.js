@@ -10,9 +10,18 @@ var mouseX;
 var mouseY;
 var draw;
 var username = "Anon McNonymous";
-while (username === "Anon McNonymous" || username === "" || username.trim().length === 0) {
+var usernameIsUnique = false;
+while (username === "Anon McNonymous" || username.trim().length === 0 && usernameIsUnique === true) {
     username = prompt("Enter a username: ")
+    socket.emit("check username uniqueness", username);
+    if (usernameIsUnique === false) {
+        alert("Username taken!");
+    }
 }
+
+socket.on("check username uniqueness", (value) => {
+    usernameIsUnique = value;
+});
 
 socket.emit("add username", username);
 
@@ -21,7 +30,7 @@ function addDraw(x, y, dragging) {
 }
 
 function redraw(drawRoom) {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     ctx.strokeStyle = "black";
     ctx.lineJoin = "round";
@@ -66,11 +75,7 @@ socket.on("draw", (drawRoom) => {
     redraw(drawRoom);
 });
 
-socket.on("update users", (users, userCount) => {
-    users.forEach((username, index) => {
-        console.log(index);
-        $("#user-list").append("<li>" + current_value +"</li>")
-    });
+socket.on("update users", (users, userCount, totalUsers) => {
 
     $("#user-total").html(userCount);
 });
