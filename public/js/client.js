@@ -12,7 +12,7 @@ function addDraw(x, y, dragging) {
 function redraw(drawRoom) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
 
-    ctx.strokeStyle = "#df4b26";
+    ctx.strokeStyle = "black";
     ctx.lineJoin = "round";
     ctx.lineWidth = 5;
 

@@ -21,11 +21,21 @@
             cursor: crosshair;
         }
 
+        button {
+            height: 30px;
+            background-color: white;
+            border: 1px solid black;
+            margin: 2px;
+            display: inline-block;
+        }
+
     </style>
 </head>
 <body>
-    <canvas id="pad" width="900" height="600">Your browser doesn't support canvas :(</canvas>
-    <button id="btn-clear">Clear</button>
+    <canvas id="pad" width="400" height="400">Your browser doesn't support canvas :(</canvas>
+    <div id="buttons">
+        <button id="btn-clear">Clear</button>
+    </div>
 
     <!-- JS -->
     <script src="/socket.io/socket.io.js"></script>
