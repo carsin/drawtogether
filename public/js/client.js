@@ -1,9 +1,20 @@
+// String prototype function to check if username is only spaces
+String.prototype.trim = function () {
+    return this.replace(/^\s*/, "").replace(/\s*$/, "");
+}
+
 var canvas = $("#pad")[0];
 var ctx = canvas.getContext("2d");
 var socket = io();
 var mouseX;
 var mouseY;
 var draw;
+var username = "Anon McNonymous";
+while (username === "Anon McNonymous" || username === "" || username.trim().length === 0) {
+    username = prompt("Enter a username: ")
+}
+
+socket.emit("add username", username);
 
 function addDraw(x, y, dragging) {
     socket.emit("draw", x, y, dragging);
@@ -55,7 +66,12 @@ socket.on("draw", (drawRoom) => {
     redraw(drawRoom);
 });
 
-socket.on("update usercount", (userCount) => {
+socket.on("update users", (users, userCount) => {
+    users.forEach((username, index) => {
+        console.log(index);
+        $("#user-list").append("<li>" + current_value +"</li>")
+    });
+
     $("#user-total").html(userCount);
 });
 

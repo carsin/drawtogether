@@ -18,14 +18,19 @@ var drawRoom = {
 
 io.on("connection", function(socket){
     io.local.emit("draw", drawRoom);
-    console.log("user connected");
     drawRoom.userCount++;
-    io.emit("update usercount", drawRoom.userCount);
+
+    socket.on("add username", (username) => {
+        drawRoom.users[socket.id] = username;
+        console.log(drawRoom.users)
+        io.emit("update users", drawRoom.users, drawRoom.userCount);
+    });
 
     socket.on("disconnect", () => {
-        console.log("user disconnected");
+        console.log(drawRoom.users[socket.id] + " disconnected");
+        delete drawRoom.users[socket.id];
         drawRoom.userCount--;
-    io.emit("update usercount", drawRoom.userCount);
+        io.emit("update users", drawRoom.users, drawRoom.userCount);
     });
 
     socket.on("draw", (x, y, dragging) => {
