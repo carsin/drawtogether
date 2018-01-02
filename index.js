@@ -13,8 +13,9 @@ io.on("connection", function(socket){
     socket.on("disconnect", () => {
         console.log("user disconnected");
     });
-    socket.on("draw", (clickX, clickY) => {
-        console.log("client drew at X:" + clickX + " Y: " + clickY);
+
+    socket.on("draw", (clickX, clickY, user) => {
+        console.log(user + " drew at X:" + clickX + " Y: " + clickY);
         io.emit("draw", clickX, clickY);
     });
 });
