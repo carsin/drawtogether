@@ -15,7 +15,8 @@ var drawRoom = {
 };
 
 io.on("connection", function(socket){
-  console.log("user connected");
+    io.local.emit("draw", drawRoom);
+    console.log("user connected");
     socket.on("disconnect", () => {
         console.log("user disconnected");
     });
@@ -24,6 +25,14 @@ io.on("connection", function(socket){
         drawRoom.clickX.push(x);
         drawRoom.clickY.push(y);
         drawRoom.clickDrag.push(dragging);
+
+        io.emit("draw", drawRoom);
+    });
+
+    socket.on("clear pad", () => {
+        drawRoom.clickX = new Array();
+        drawRoom.clickY = new Array();
+        drawRoom.clickDrag = new Array();
 
         io.emit("draw", drawRoom);
     });

@@ -54,3 +54,7 @@ $("#pad").mousemove((e) => {
 socket.on("draw", (drawRoom) => {
     redraw(drawRoom);
 });
+
+$("#btn-clear").click(() => {
+    socket.emit("clear pad");
+});
