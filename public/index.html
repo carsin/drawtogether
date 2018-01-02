@@ -5,20 +5,30 @@
     <title>Draw together</title>
     <!-- CSS -->
     <style>
-        body, html {
+        body, html, #canvas-container {
             height: 100%;
             width: 100%;
             margin: 0;
             padding: 0;
+            font-family: "Helvetica", sans-serif;
+            font-weight: 900;
+        }
+
+        #canvas-container {
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             flex-direction: column;
         }
 
         #pad {
             border: 1px solid black;
             cursor: crosshair;
+        }
+
+        #users {
+            font-size: 20px;
+            margin: 10px;
         }
 
         button {
@@ -32,9 +42,17 @@
     </style>
 </head>
 <body>
-    <canvas id="pad" width="400" height="400">Your browser doesn't support canvas :(</canvas>
-    <div id="buttons">
-        <button id="btn-clear">Clear</button>
+    <div id="users">
+        <p>Total users: <span id="user-total">N/A</span></p>
+        <p>Users: </p>
+        <ul id="user-list"></ul>
+    </div>
+
+    <div id="canvas-container">
+        <canvas id="pad" width="400" height="400">Your browser doesn't support canvas :(</canvas>
+        <div id="buttons">
+            <button id="btn-clear">Clear</button>
+        </div>
     </div>
 
     <!-- JS -->
