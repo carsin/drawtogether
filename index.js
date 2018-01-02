@@ -12,13 +12,20 @@ var drawRoom = {
     clickX: new Array(),
     clickY: new Array(),
     clickDrag: new Array(),
+    users: new Array(),
+    userCount: 0,
 };
 
 io.on("connection", function(socket){
     io.local.emit("draw", drawRoom);
     console.log("user connected");
+    drawRoom.userCount++;
+    io.emit("update usercount", drawRoom.userCount);
+
     socket.on("disconnect", () => {
         console.log("user disconnected");
+        drawRoom.userCount--;
+    io.emit("update usercount", drawRoom.userCount);
     });
 
     socket.on("draw", (x, y, dragging) => {

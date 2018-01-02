@@ -55,6 +55,10 @@ socket.on("draw", (drawRoom) => {
     redraw(drawRoom);
 });
 
+socket.on("update usercount", (userCount) => {
+    $("#user-total").html(userCount);
+});
+
 $("#btn-clear").click(() => {
     socket.emit("clear pad");
 });
