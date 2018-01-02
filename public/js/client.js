@@ -10,18 +10,9 @@ var mouseX;
 var mouseY;
 var draw;
 var username = "Anon McNonymous";
-var usernameIsUnique = false;
-while (username === "Anon McNonymous" || username.trim().length === 0 && usernameIsUnique === true) {
+while (username === "Anon McNonymous" || username.trim().length === 0) {
     username = prompt("Enter a username: ")
-    socket.emit("check username uniqueness", username);
-    if (usernameIsUnique === false) {
-        alert("Username taken!");
-    }
 }
-
-socket.on("check username uniqueness", (value) => {
-    usernameIsUnique = value;
-});
 
 socket.emit("add username", username);
 

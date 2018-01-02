@@ -28,18 +28,6 @@ io.on("connection", function(socket){
         io.emit("update users", drawRoom.users, drawRoom.userCount, drawRoom.totalUsers);
     });
 
-    socket.on("check username uniqueness", (username) => {
-        for (i = 0; i < drawRoom.totalUsers; i++) {
-            if (drawRoom.users[i] === username) {
-                io.emit("check username uniqueness", false);
-                console.log(drawRoom.users[i] + "=" + username);
-            } else {
-                io.emit("check username uniqueness", true);
-                console.log(drawRoom.users[i] + "=" + username);
-            }
-        }
-    });
-
     socket.on("disconnect", () => {
         console.log(drawRoom.users[socket.id] + " disconnected");
         delete drawRoom.users[socket.id];
