@@ -15,8 +15,6 @@ while (username === "Anon McNonymous" || username.trim().length === 0) {
     username = prompt("Enter a username: ")
 }
 
-socket.emit("add username", username);
-
 function addDraw(x, y, dragging) {
     socket.emit("draw", x, y, dragging);
 }
@@ -67,14 +65,8 @@ socket.on("draw", (drawRoom) => {
     redraw(drawRoom);
 });
 
-socket.on("update users", (users, userCount, totalUsers) => {
-    $("#user-list").html(" ");
-    for (i = 0; i < users.length; i++) {
-        $("#user-list").append("<li> " + users[i] + "</li>")
-    }
-
+socket.on("update users", (userCount) => {
     $("#user-online").html(userCount);
-    $("#user-total").html(totalUsers);
 });
 
 $("#btn-clear").click(() => {
