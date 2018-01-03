@@ -10,6 +10,7 @@ var mouseX;
 var mouseY;
 var draw;
 var username = "Anon McNonymous";
+var clearCooldown = 0;
 while (username === "Anon McNonymous" || username.trim().length === 0) {
     username = prompt("Enter a username: ")
 }
@@ -77,5 +78,17 @@ socket.on("update users", (users, userCount, totalUsers) => {
 });
 
 $("#btn-clear").click(() => {
-    socket.emit("clear pad");
+    if (clearCooldown === 0) {
+        socket.emit("clear pad");
+        clearCooldown = 60;
+        var clearCooldownTimer = setInterval(() => {
+            if (clearCooldown > 0) {
+                clearCooldown--;
+            } else {
+                clearInterval(clearCooldownTimer);
+            }
+        }, 1000);
+    } else {
+        alert("You must wait another " + clearCooldown + " seconds to clear again.")
+    }
 });
