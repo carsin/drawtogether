@@ -9,11 +9,7 @@ var socket = io();
 var mouseX;
 var mouseY;
 var draw;
-var username = "Anon McNonymous";
 var clearCooldown = 0;
-while (username === "Anon McNonymous" || username.trim().length === 0) {
-    username = prompt("Enter a username: ")
-}
 
 function addDraw(x, y, dragging) {
     socket.emit("draw", x, y, dragging);
